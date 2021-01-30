@@ -1,0 +1,34 @@
+
+main:
+		PUSH	%14
+		MOV 	%15,%14
+		SUBS	%15,$8,%15
+@main_body:
+		MOV 	$0,-4(%14)
+		MOV 	$0,-8(%14)
+		SUBS	%15,$4,%15
+		MOV 	$0,-12(%14)
+@for0:
+		CMPS 	-12(%14),$5
+		JGES	@exit_for0
+		ADDS	-4(%14),-12(%14),%0
+		MOV 	%0,-4(%14)
+		SUBS	%15,$4,%15
+		MOV 	$1,-16(%14)
+@for1:
+		CMPS 	-16(%14),$3
+		JGTS	@exit_for1
+		ADDS	-8(%14),-16(%14),%0
+		MOV 	%0,-8(%14)
+		ADDS	-16(%14),$1,-16(%14)
+		JMP 	@for1
+@exit_for1:
+		ADDS	-12(%14),$1,-12(%14)
+		JMP 	@for0
+@exit_for0:
+		MOV 	-4(%14),%13
+		JMP 	@main_exit
+@main_exit:
+		MOV 	%14,%15
+		POP 	%14
+		RET
